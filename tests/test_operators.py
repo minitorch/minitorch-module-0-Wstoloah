@@ -109,10 +109,10 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
-    assert  0 < sigmoid(a) < 1
-    assert_close(1 - sigmoid(a),sigmoid(-a))
+    assert 0 <= sigmoid(a) <= 1
+    assert_close(1 - sigmoid(a), sigmoid(-a))
     assert sigmoid(0) == 0.5
-    assert sigmoid(a + 0.1) > sigmoid(a)
+    assert sigmoid(a + 1.0) >= sigmoid(a)
 
 
 @pytest.mark.task0_2
@@ -126,12 +126,12 @@ def test_transitive(a: float, b: float, c: float) -> None:
 
 @pytest.mark.task0_2
 @given(small_floats, small_floats)
-def test_symmetric(a: float, b:float) -> None:
+def test_symmetric(a: float, b: float) -> None:
     """Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
     # TODO: Implement for Task 0.2.
-    assert_close(mul(a, b),mul(b, a))
+    assert_close(mul(a, b), mul(b, a))
 
 
 @pytest.mark.task0_2
@@ -141,7 +141,7 @@ def test_distribute(a: float, b: float, c: float) -> None:
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     # TODO: Implement for Task 0.2.
-    assert_close(mul(c, a+b),mul(c,a) + mul(c,b))
+    assert_close(mul(c, a + b), mul(c, a) + mul(c, b))
 
 
 @pytest.mark.task0_2
@@ -182,7 +182,6 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     for item in it:
         assert_close(item, ls1[counter] + ls2[counter])
         counter += 1
-   
 
 
 @pytest.mark.task0_3

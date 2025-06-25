@@ -26,13 +26,17 @@ class Module:
 
     def modules(self) -> Sequence[Module]:
         """Return the direct child modules of this module."""
-        m: Dict[str, Module] = self.__dict__["_modules"] # self.__dict__ is used to access the attributes of the Module instance (not necessary in this case)
+        m: Dict[str, Module] = self.__dict__[
+            "_modules"
+        ]  # self.__dict__ is used to access the attributes of the Module instance (not necessary in this case)
         return list(m.values())
 
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
         # TODO: Implement for Task 0.4.
-        stack = list(self.modules())  # Initialize stack with direct children of the current module
+        stack = list(
+            self.modules()
+        )  # Initialize stack with direct children of the current module
         while stack:
             child = stack.pop()  # Pop a child module
             child.training = True  # Set its training mode to True
@@ -41,7 +45,9 @@ class Module:
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
         # TODO: Implement for Task 0.4.
-        stack = list(self.modules())  # Initialize stack with direct children of the current module
+        stack = list(
+            self.modules()
+        )  # Initialize stack with direct children of the current module
         while stack:
             child = stack.pop()  # Pop a child module
             child.training = False  # Set its training mode to True
@@ -56,29 +62,35 @@ class Module:
 
         """
         # TODO: Implement for Task 0.4.
-        stack = list(self.modules())  # Initialize stack with direct children of the current module
+        stack = list(
+            self.modules()
+        )  # Initialize stack with direct children of the current module
         params = []
 
         while stack:
             child = stack.pop()  # Pop a child module
             # Add each parameter in this module to the params list
             for name, param in child._parameters.items():
-                params.append((name, param))  # Append tuple of (parameter name, parameter object)
+                params.append(
+                    (name, param)
+                )  # Append tuple of (parameter name, parameter object)
             # Add the child modules to the stack for future processing
             stack.extend(child.modules())
 
         return params
-    
+
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
         # TODO: Implement for Task 0.4.
-        stack = list(self.modules())  # Initialize stack with direct children of the current module
+        stack = list(
+            self.modules()
+        )  # Initialize stack with direct children of the current module
         params = []
 
         while stack:
             child = stack.pop()  # Pop a child module
             # Add each parameter in this module to the params list
-            for _ , param in child._parameters.items():
+            for _, param in child._parameters.items():
                 params.append(param)  # Append parameter object
             # Add the child modules to the stack for future processing
             stack.extend(child.modules())
@@ -119,6 +131,7 @@ class Module:
         return None
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Forwards the call to the `forward` method with the given arguments."""
         return self.forward(*args, **kwargs)
 
     def __repr__(self) -> str:
