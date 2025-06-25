@@ -3,7 +3,8 @@
 import math
 
 # ## Task 0.1
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Any, List
+import numpy as np
 
 #
 # Implementation of a prelude of elementary functions.
@@ -124,3 +125,31 @@ def relu_back(num: float, d: float) -> float:
 
 
 # TODO: Implement for Task 0.3.
+
+def map(iterable: Iterable, f: Callable) -> Iterable:
+    return (f(x) for x in iterable)
+
+def zipWith(it1: Iterable, it2: Iterable, f: Callable) -> Iterable:
+    return (f(x,y) for x, y in zip(it1, it2))
+
+def reduce(iterable: Iterable, f: Callable) -> Any:
+    it = iter(iterable)  
+    result = next(it)  
+    for item in it: 
+        result = f(result, item)
+    return result
+def negList(list: Iterable[float]) -> Iterable:
+    return map(list, lambda x:-x)
+
+
+def addLists(lst1: Iterable[float], lst2: Iterable[float]) -> Iterable[float]:
+    return zipWith(lst1, lst2, lambda x, y: x + y)
+
+
+def sum(lst: Iterable[float]) -> float:
+    """Sum all elements in a list using reduce."""
+    return reduce(lst, lambda x, y: x + y)
+
+def prod(lst: Iterable[float]) -> float:
+    """Calculate the product of all elements in a list using reduce."""
+    return reduce(lst, lambda x, y: x * y)

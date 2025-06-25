@@ -177,7 +177,12 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    it = iter(addLists(ls1, ls2))
+    counter = 0
+    for item in it:
+        assert_close(item, ls1[counter] + ls2[counter])
+        counter += 1
+   
 
 
 @pytest.mark.task0_3
